@@ -30,7 +30,7 @@ javascript:(function() {
 
     // 閉じるボタンを作成
     var closeButton = document.createElement("button");
-    closeButton.innerText = "閉じる";
+    closeButton.innerText = "×";
     closeButton.style.position = "absolute";
     closeButton.style.top = "10px";
     closeButton.style.right = "10px";
