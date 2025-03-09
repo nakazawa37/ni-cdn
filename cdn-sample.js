@@ -26,7 +26,7 @@ javascript:(function() {
     modalContent.style.maxHeight = "80%";
     modalContent.style.overflow = "auto";
     modalContent.style.textAlign = "center";
-    modalContent.innerText = userInput & "<br/>test";
+    modalContent.innerText = userInput + "<br/>test";
 
     // 閉じるボタンを作成
     var closeButton = document.createElement("button");
