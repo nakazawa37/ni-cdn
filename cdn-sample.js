@@ -26,7 +26,7 @@ javascript:(function() {
     modalContent.style.maxHeight = "80%";
     modalContent.style.overflow = "auto";
     modalContent.style.textAlign = "center";
-    modalContent.innerText = userInput;
+    modalContent.innerText = userInput & "<br/>test";
 
     // 閉じるボタンを作成
     var closeButton = document.createElement("button");
@@ -34,7 +34,7 @@ javascript:(function() {
     closeButton.style.position = "absolute";
     closeButton.style.top = "10px";
     closeButton.style.right = "10px";
-    closeButton.style.backgroundColor = "#ff0000";
+    closeButton.style.backgroundColor = "#ff9999";
     closeButton.style.color = "#fff";
     closeButton.style.border = "none";
     closeButton.style.padding = "10px";
