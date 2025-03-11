@@ -1,3 +1,4 @@
+
 javascript:(function() {
   // プロンプトを表示してユーザーから入力を受け取る
   var userInput = prompt("表示するテキストを入力してください:");
