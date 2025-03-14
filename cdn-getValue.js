@@ -1,63 +1,43 @@
-javascript:(function(){
+// フロート通知を表示する関数
+function showNotification(message) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.style.position = 'fixed';
+    notification.style.top = '10px';
+    notification.style.right = '10px';
+    notification.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    notification.style.color = 'white';
+    notification.style.padding = '10px 20px';
+    notification.style.borderRadius = '5px';
+    notification.style.zIndex = 1000;
+    document.body.appendChild(notification);
 
-  // Bodyに動的に要素を追加する
-  document.body.style.fontFamily = 'Arial, sans-serif';
+    // 3秒後に通知を削除
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
 
-  // コピー対象の要素を作成
-  const targetElement = document.createElement('p');
-  targetElement.id = 'targetElement';
-  targetElement.textContent = 'これはコピーされるテキストです。';
-  document.body.appendChild(targetElement);
+// 値をクリップボードにコピーする関数
+function copyToClipboard(value) {
+    navigator.clipboard.writeText(value).then(() => {
+        showNotification('コピーが完了しました！');
+    }).catch(err => {
+        console.error('クリップボードにコピーできませんでした: ', err);
+    });
+}
 
-  // コピー用ボタンを作成
-  const copyButton = document.createElement('button');
-  copyButton.id = 'copyButton';
-  copyButton.textContent = 'コピー';
-  document.body.appendChild(copyButton);
+// ページ上の要素をクリックしてコピーする例
+document.addEventListener('click', (event) => {
+    const target = event.target;
+    
+    // 任意の条件で要素をフィルタリング（ここではdata-copy属性を持つ要素のみ）
+    if (target.dataset.copy) {
+        const valueToCopy = target.textContent || target.value;
+        copyToClipboard(valueToCopy);
+    }
+});
 
-  // フロートウィンドウを作成
-  const floatingWindow = document.createElement('div');
-  floatingWindow.id = 'floatingWindow';
-  floatingWindow.textContent = 'コピー完了';
-  floatingWindow.style.display = 'none'; // 初期状態は非表示
-  floatingWindow.style.position = 'fixed';
-  floatingWindow.style.bottom = '20px';
-  floatingWindow.style.right = '20px';
-  floatingWindow.style.padding = '10px';
-  floatingWindow.style.backgroundColor = '#4CAF50';
-  floatingWindow.style.color = 'white';
-  floatingWindow.style.borderRadius = '5px';
-  floatingWindow.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
-  document.body.appendChild(floatingWindow);
-
-  // ボタンにイベントリスナーを追加
-  copyButton.addEventListener('click', function () {
-      // コピー対象のテキストを取得
-      const textToCopy = targetElement.textContent;
-
-      // 一時的なtextareaを作成して値をコピー
-      const tempTextArea = document.createElement('textarea');
-      tempTextArea.value = textToCopy;
-      document.body.appendChild(tempTextArea);
-      tempTextArea.select();
-
-      try {
-          // クリップボードにコピー
-          document.execCommand('copy');
-
-          // フロートウィンドウを表示
-          floatingWindow.style.display = 'block';
-
-          // 一定時間後に非表示
-          setTimeout(() => {
-              floatingWindow.style.display = 'none';
-          }, 2000); // 2秒後に非表示
-      } catch (err) {
-          console.error('コピーに失敗しました:', err);
-      }
-
-      // 一時textareaを削除
-      document.body.removeChild(tempTextArea);
-  });
-  
-})();
+// 任意の要素に以下のような属性を追加して動作確認できます：
+// <div data-copy>コピーするテキスト</div>
+// <input type="text" value="コピーするテキスト" data-copy>
